@@ -1,0 +1,32 @@
+{
+  "name": "nodebb-plugin-gallery",
+  "version": "0.0.1",
+  "description": "NodeBB Lightbox Gallery Plugin",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psychobunny/nodebb-plugin-gallery"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "lightbox",
+    "gallery",
+    "fancybox"
+  ],
+  "author": {
+    "name": "psychobunny",
+    "email": "psycho.bunny@hotmail.com"
+  },
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/psychobunny/nodebb-plugin-gallery/issues"
+  },
+  "readme": "",
+  "readmeFilename": "README.md",
+  "_id": "nodebb-plugin-gallery@0.0.1",
+  "_from": "nodebb-plugin-gallery@~0.0.1"
+}

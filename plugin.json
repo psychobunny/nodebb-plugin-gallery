@@ -1,0 +1,16 @@
+{
+	"id": "nodebb-plugin-gallery",
+	"name": "NodeBB Lightbox Gallery Plugin",
+	"description": "This NodeBB plugin feeds all posted images into a lightbox gallery.",
+	"url": "https://github.com/psychobunny/nodebb-plugin-gallery",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "filter:scripts.get", "method": "addScripts", "callbacked": false }
+	],
+	"staticDir": "./public",
+	"css": [
+		"vendor/fancybox/jquery.fancybox.css",
+		"vendor/fancybox/helpers/jquery.fancybox-buttons.css",
+		"vendor/fancybox/helpers/jquery.fancybox-thumbs.css"
+	]
+}
