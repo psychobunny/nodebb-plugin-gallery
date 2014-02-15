@@ -1,4 +1,4 @@
-# NodeBB Lightbox Mousetrap Plugin 
+# NodeBB Lightbox
 
 This NodeBB plugin feeds all posted images into a lightbox gallery.
 
