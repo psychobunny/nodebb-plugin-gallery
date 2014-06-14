@@ -2,12 +2,8 @@
 	"use strict";
 
 	jQuery('document').ready(function() {
-		var processPage = app.processPage;
-
-		app.processPage = function() {
-			processPage();
-
+		$(window).on('action:ajaxify.end', function() {
 			$(".post-content a:has(img)").attr('rel', 'gallery').fancybox();
-		}
+		});
 	});
 }());

@@ -5,12 +5,12 @@
 	"url": "https://github.com/psychobunny/nodebb-plugin-gallery",
 	"library": "./library.js",
 	"hooks": [
-		{ "hook": "filter:scripts.get", "method": "addScripts", "callbacked": false }
+		{ "hook": "filter:scripts.get", "method": "addScripts" }
 	],
 	"staticDir": "./public",
 	"css": [
-		"vendor/fancybox/jquery.fancybox.css",
-		"vendor/fancybox/helpers/jquery.fancybox-buttons.css",
-		"vendor/fancybox/helpers/jquery.fancybox-thumbs.css"
+		"public/vendor/fancybox/jquery.fancybox.css",
+		"public/vendor/fancybox/helpers/jquery.fancybox-buttons.css",
+		"public/vendor/fancybox/helpers/jquery.fancybox-thumbs.css"
 	]
 }
