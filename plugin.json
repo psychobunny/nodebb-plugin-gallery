@@ -8,7 +8,8 @@
 
 	],
 	"staticDirs": {
-		"gallery": "./public"
+		"gallery": "./public",
+        "fancybox": "public/vendor/fancybox"
 	},
 	"scripts" : [
 		"public/vendor/jquery.mousewheel.min.js",
