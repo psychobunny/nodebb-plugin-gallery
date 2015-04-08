@@ -21,6 +21,7 @@
 	"css": [
 		"public/vendor/fancybox/jquery.fancybox.css",
 		"public/vendor/fancybox/helpers/jquery.fancybox-buttons.css",
-		"public/vendor/fancybox/helpers/jquery.fancybox-thumbs.css"
+		"public/vendor/fancybox/helpers/jquery.fancybox-thumbs.css",
+		"public/gallery.css"
 	]
 }
