@@ -1,6 +1,9 @@
 {
   "name": "nodebb-plugin-gallery",
   "version": "0.0.4",
+  "nbbpm": {
+    "compatibility": "^0.7.0"
+  },
   "description": "NodeBB Lightbox Gallery Plugin",
   "main": "library.js",
   "scripts": {
