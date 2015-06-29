@@ -5,7 +5,7 @@
 	"url": "https://github.com/psychobunny/nodebb-plugin-gallery",
 	"library": "./library.js",
 	"hooks": [
-
+		{ "hook": "static:app.load", "method": "exposeImages" }
 	],
 	"staticDirs": {
 		"gallery": "./public"
