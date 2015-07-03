@@ -7,17 +7,13 @@ var fs = require('fs');
 	"use strict";
 
 	var Gallery = {};
-	Gallery.exposeImages = function(app, cb) {
+	Gallery.exposeAssetImages = function(app, cb) {
 		var pluginPath = ''; // path of this plugin
 		var publicImagePath = ''; // publicly accessible path to put images into
 		var imageFiles = [
-			'blank.gif',
-			'fancybox_loading.gif',
-			'fancybox_loading@2x.gif',
-			'fancybox_overlay.png',
-			'fancybox_sprite.png',
-			'fancybox_sprite@2x.png',
-			'helpers/fancybox_buttons.png'
+			'play-pause.svg',
+			'loading.gif',
+			'error.svg'
 		];
 		// filter gallery path from plugin paths list
 		pluginPath = plugins.libraryPaths.filter(function(path) {
@@ -25,15 +21,13 @@ var fs = require('fs');
 		})[0];
 		// throw away filename, add folders
 		pluginPath = pluginPath.slice(0, pluginPath.lastIndexOf('/') + 1) +
-				'public/vendor/fancybox/';
+				'public/vendor/img/';
 		// build path to public
 		publicImagePath = pluginPath.slice(0, pluginPath.lastIndexOf('node_modules')) +
 				'public/images/';
 		async.each(imageFiles, function copyImage(filename, next) {
 			var reader = fs.createReadStream(pluginPath + filename);
 			reader.on('error', function(err) {
-				winston.error('[plugins:gallery] Couldn\' read file: ' + filename);
-				winston.error(err);
 				next(err);
 			});
 			var writer = fs.createWriteStream(publicImagePath + filename);
@@ -44,8 +38,13 @@ var fs = require('fs');
 				next();
 			});
 			reader.pipe(writer);
+		}, function(err) {
+			if (err) {
+				winston.error('[plugins:gallery] Couldn\' move file: ' + filename);
+				winston.error(err);
+			}
+			cb(null, app);
 		});
-		cb();
 	};
 
 	module.exports = Gallery;
