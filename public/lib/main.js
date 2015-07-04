@@ -72,7 +72,7 @@ $(document).ready(function() {
         console.warn('[plugin:gallery] Non critical error in addSlides()');
       }
     } else {
-      self._gallery = blueimp.Gallery(slides, self.options);
+      self._gallery = blueimp.Gallery(slides, self.options, true);
     }
     this.reindexSlideElements();
   };
