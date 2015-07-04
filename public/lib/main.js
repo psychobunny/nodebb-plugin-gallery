@@ -7,25 +7,41 @@ $(document).ready(function() {
       return new NBBGallery();
     }
 
+    this.up = false;
+    this.lastTop = 0;
     this.sel = '[component="post/content"] .img-markdown';  // image selector
     this._gallery = null;                                   // lightbox instance
     this.options = {                                        // lightbox options
       index: 0,
-      clearSlides: false
+      clearSlides: true
     };                                                      // lightbox options;
 
-    this.setHooks();
     this.insertGalleryElements();
-  };
-  NBBGallery.prototype.setHooks = function() {
     var self = this;
+    document.addEventListener('scroll', function() {
+      self.up = (window.pageYOffset < self.lastTop);
+      self.lastTop = window.pageYOffset;
+    });
     $(window).on('action:topic.loaded', function() {
-
       var imgs = document.querySelectorAll(self.sel);
       if (imgs.length > 0) {
-        self.buildSlides(imgs, true);
+        self._gallery = null;
+        self.addSlides(imgs, false);
       }
     });
+    $(window).on('action:posts.loaded', function(evt, posts) {
+      var imgs = document.querySelectorAll(self.sel +
+                                           ':not([data-gallery-idx])');
+      if (imgs.length > 0) {
+        self.addSlides(imgs, self.up);
+      }
+    });
+  };
+  NBBGallery.prototype.reindexSlideElements = function() {
+    var imgs = document.querySelectorAll(this.sel);
+    for (var i = 0; i <= imgs.length - 1; i++) {
+      imgs.item(i).dataset.galleryIdx = i;
+    }
   };
   NBBGallery.prototype.Slide = function(src) {
     return {
@@ -33,39 +49,32 @@ $(document).ready(function() {
       thumbnail: src
     };
   };
-  NBBGallery.prototype.buildSlides = function(imgs, clear) {
-    console.log('buildSlides');
+  NBBGallery.prototype.addSlides = function(imgs, up) {
+    var img;
     var self = this;
-    if (imgs.length > 0) {
-      var slides = [imgs.length];
-      console.log(imgs.length);
-      for (var i = 0; i <= imgs.length - 1; i++) {
-        var img = imgs.item(i);
-        console.log('adding');
-        slides[i] = self.Slide(imgs.item(i).src);
-        img.dataset.galleryIdx = i;
-        img.addEventListener('click', function(evt) {
-          var idx = parseInt(this.dataset.galleryIdx, 10);
-          console.log('my idx is: ' + this.dataset.galleryIdx);
-          evt = evt || window.event;
-          evt.preventDefault();
-          self._gallery.initialize();
-          self._gallery.slide(idx, 0);
-        });
-      }
-      if (self._gallery) {
-        if (!clear) {
-          self._gallery.add(slides);
-        } else {
-          self._gallery.unloadAllSlides();
-          self._gallery = blueimp.Gallery(slides, self.options);
-        }
-      } else {
-        self._gallery = blueimp.Gallery(slides, self.options);
-      }
+    var slides = [];
+    for (var i = 0; i <= imgs.length - 1; i++) {
+      img = imgs.item(i);
+      slides.push(this.Slide(img.src));
+      img.addEventListener('click', function(evt) {
+        var idx = parseInt(this.dataset.galleryIdx, 10);
+        evt.preventDefault();
+        self._gallery.initialize();
+        self._gallery.slide(idx, 0);
+      });
     }
-    // imgs.map(function(img, idx) {
-    // });
+    if (self._gallery) {
+      try {
+        self._gallery.add(slides);
+      } catch (e) {
+        // for some reason the internal slides array can't be 'pushed'
+        // from time to time - just don't know which ones, yet.
+        console.warn('[plugin:gallery] Non critical error in addSlides()');
+      }
+    } else {
+      self._gallery = blueimp.Gallery(slides, self.options);
+    }
+    this.reindexSlideElements();
   };
   NBBGallery.prototype.insertGalleryElements = function() {
     // replace with templates.js ?
