@@ -29,7 +29,7 @@
 }(function ($) {
     'use strict';
 
-    function Gallery(list, options) {
+    function Gallery(list, options, dontShowOnInit) {
         if (document.body.style.maxHeight === undefined) {
             // document.body.style.maxHeight is undefined on IE6 and lower
             return null;
@@ -37,7 +37,7 @@
         if (!this || this.options !== Gallery.prototype.options) {
             // Called as function instead of as constructor,
             // so we simply return a new instance:
-            return new Gallery(list, options);
+            return new Gallery(list, options, dontShowOnInit);
         }
         if (!list || !list.length) {
             this.console.log(
@@ -49,7 +49,9 @@
         this.list = list;
         this.num = list.length;
         this.initOptions(options);
-        this.initialize();
+        if (!dontShowOnInit) {
+          this.initialize();
+        }
     }
 
     $.extend(Gallery.prototype, {
