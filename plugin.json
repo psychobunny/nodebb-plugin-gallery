@@ -13,7 +13,7 @@
 	"scripts" : [
 		"public/vendor/jquery.mousewheel.min.js",
 		"public/vendor/fancybox/jquery.fancybox.js",
-		"public/asdvendor/fancybox/helpers/jquery.fancybox-buttons.js",
+		"public/vendor/fancybox/helpers/jquery.fancybox-buttons.js",
 		"public/vendor/fancybox/helpers/jquery.fancybox-media.js",
 		"public/vendor/fancybox/helpers/jquery.fancybox-thumbs.js",
 		"public/lib/main.js"
